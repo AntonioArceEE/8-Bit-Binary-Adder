@@ -25,7 +25,8 @@ The Arduino supplies repeatable 8-bit input patterns, but it does not perform th
 * One carry-out LED
 * Individual LED current-limiting resistors
 * Active-HIGH momentary pushbutton
-* 330 Ω, ½-watt enable pull-down resistor
+* 330 Ω, 1/2-watt enable pull-down resistor
+* 2000 Ω, 1/2-watt led resistor
 * Regulated 5 V power supply
 * Jumper wires
 * USB connection for the Arduino Serial Monitor
