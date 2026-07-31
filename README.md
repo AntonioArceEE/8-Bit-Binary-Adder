@@ -1,27 +1,145 @@
-# 8-Bit-Binary-Adder
-Designed and implemented an 8-bit binary adder using TTL logic ICs, simulation, and hardware verification.
-## Project Overview 8-bit binary adder with constraints. Limited switches,ICs, and LEDs.
-## Objectives Design and Implement an 8-bit binary Adder and verify with boolean truth table.
-## Components 
-- Breadboards 
-- Wires
-- 2x74LS75N
-- 2x74LS83N
-- LEDS 
-- Seven-segment display 
-- 8-position DIP switch
-- 5 V power supply
-- 220 Ohm Resistors
-- Active-high push buttons
-## Design Constraints 
-- Limited breadboard space required the circuit to be distributed across multiple breadboards.
-- Limited switches and LEDs required careful planning of the input and output interface.
-- The design was implemented using available TTL logic ICs and discrete components.
-## Design Process - To reduce debugging complexity, a 2-bit prototype was verified before scaling the design to 8 bits.
-## Testing Verification Verified 8-bit adder with truth table, simulation and hardware implementation.
-## Results Hardware testing confirmed that all observed outputs matched the expected Boolean truth table.
-## Lessons Learned Pulse switch was initially a true-negative that resulted in false outputs and was corrected with troubleshooting.
+# Arduino-Assisted 8-Bit Binary Adder
+
+## Project Overview
+
+I designed, simulated, constructed, and tested an 8-bit binary adder using TTL logic ICs, two 74LS75 latches, two cascaded 74LS83 adders, and an Arduino Uno R4 input interface.
+
+The Arduino supplies repeatable 8-bit input patterns, but it does not perform the arithmetic. The TTL circuit stores operand A, receives operand B through the shared input bus, and displays the result using eight sum LEDs and a carry-out LED.
+
+## Objectives
+
+* Design and construct a working 8-bit binary adder.
+* Store one 8-bit operand using 74LS75 latches.
+* Cascade two 4-bit adders to perform 8-bit arithmetic.
+* Use an Arduino to replace unreliable mechanical DIP switches.
+* Test carry propagation, overflow, and different binary input patterns.
+* Compare the physical circuit with the Multisim simulation.
+
+## Components
+
+* Arduino Uno R4
+* Two solderless breadboards
+* 2 × 74LS75N four-bit latch ICs
+* 2 × 74LS83N four-bit binary adder ICs
+* Eight sum LEDs
+* One carry-out LED
+* Individual LED current-limiting resistors
+* Active-HIGH momentary pushbutton
+* 330 Ω, ½-watt enable pull-down resistor
+* Regulated 5 V power supply
+* Jumper wires
+* USB connection for the Arduino Serial Monitor
+
+## Circuit Operation
+
+Arduino pins 3 through 10 generate an 8-bit parallel input bus.
+
+| Arduino pin | Data bit |
+| ----------: | -------- |
+|           3 | D0 / LSB |
+|           4 | D1       |
+|           5 | D2       |
+|           6 | D3       |
+|           7 | D4       |
+|           8 | D5       |
+|           9 | D6       |
+|          10 | D7 / MSB |
+
+The shared input bus connects to the D inputs of the 74LS75 latches and to the live B inputs of the adder.
+
+The operating sequence is:
+
+1. Enter operand A through the Arduino Serial Monitor.
+2. Press and release the load button to store A in the 74LS75 latches.
+3. Enter operand B through the same input bus.
+4. Read the result from the eight sum LEDs and carry-out LED.
+
+The latch Q outputs provide the stored A operand. The current value on the shared bus provides the B operand.
+
+## Shared-Bus Behavior
+
+Immediately after A is latched, the shared bus still contains A. During this short period, the LEDs display A + A. When B is sent, the display updates to the intended A + B result.
+
+This is a valid intermediate result caused by the shared-bus design. The LED output is not stored or fed back into the adder.
+
+## Carry Operation
+
+The two 74LS83 adders are cascaded to form an 8-bit arithmetic circuit. The carry output from the lower four-bit stage connects to the carry input of the upper four-bit stage.
+
+The initial carry-in is tied to logic LOW. A separate LED displays the final carry-out.
+
+## Power-Up Behavior
+
+The 74LS75 latches do not include a power-on reset in this design. Their initial outputs are therefore undefined when power is first applied.
+
+Before testing, I send `00000000` and activate the latch to initialize stored A to zero.
+
+## Multisim Simulation
+
+I simulated the circuit in Multisim before completing the physical breadboard version.
+
+The original simulation used an eight-position DIP switch. The updated simulation uses a Word Generator to represent the eight Arduino GPIO outputs. Only Word Generator outputs 0 through 7 are used.
+
+The simulation and physical circuit follow the same sequence:
+
+```text
+Send A → Latch A → Send B → Read Result
+```
+
+## Test Results
+
+The circuit was tested using representative binary patterns rather than every possible input combination.
+
+| A          | B          | Expected output | Result |
+| ---------- | ---------- | --------------- | ------ |
+| `00000001` | `00000001` | `0 00000010`    | Passed |
+| `00001111` | `00000001` | `0 00010000`    | Passed |
+| `01010101` | `10101010` | `0 11111111`    | Passed |
+| `10010000` | `10010000` | `1 00100000`    | Passed |
+| `11110000` | `00010000` | `1 00000000`    | Passed |
+| `11111111` | `00000001` | `1 00000000`    | Passed |
+
+The first output bit in the table represents carry-out, followed by the eight sum bits.
+
+## Troubleshooting and Improvements
+
+During construction, I encountered several problems that were not as noticeable in simulation:
+
+* Mechanical DIP switches required too much pressure and disturbed nearby jumper wires.
+* Some jumper wires had unreliable contacts.
+* The Arduino and TTL circuit required a shared common ground.
+* The shared latch-enable line was not initially held at a reliable TTL LOW level.
+* A 330 Ω pull-down resistor produced more consistent enable operation.
+* LED current-limiting resistors reduced output loading.
+* Replacing the DIP switches with Arduino-generated inputs improved test repeatability.
+
+These problems helped me practice tracing signals, checking logic levels, verifying power and ground, and separating wiring problems from logic-design problems.
+
+## Design Constraints
+
+* The dense solderless-breadboard layout is sensitive to physical movement.
+* The latch has no automatic power-on reset.
+* The shared input bus produces a temporary A + A result after A is loaded.
+* Carry-in is currently fixed at logic LOW.
+* The Arduino generates test inputs, while the TTL ICs perform the arithmetic.
+
+## Design Process
+
+I first constructed and verified a smaller 2-bit prototype before scaling the design to eight bits. This reduced debugging complexity and helped confirm the latch and adder connections before completing the larger circuit.
+
 ## Future Improvements
-- Research component datasheet to prevent bugs
-- Reduce wire complexity and improve organization
-- Simulate before hardware implementation
+
+Possible future improvements include:
+
+* Use the Arduino to control the latch-enable signal automatically.
+* Have the Arduino read and verify the TTL outputs.
+* Add a power-on reset circuit.
+* Rebuild the circuit on perfboard for stronger mechanical connections.
+* Improve wire organization and signal labeling.
+* Add subtraction or additional logic operations.
+
+## Demonstration
+
+A video demonstration will be added after final recording and editing.
+
+The demonstration will show circuit initialization, operand loading, shared-bus behavior, sum outputs, carry propagation, and final carry-out.
