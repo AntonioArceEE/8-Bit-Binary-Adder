@@ -87,6 +87,12 @@ The simulation and physical circuit follow the same sequence:
 ```text
 Send A → Latch A → Send B → Read Result
 ```
+### Simulation Files
+
+- [Download the Multisim simulation](8-Bit-Adder-Multisim-Simulation.ms14)
+- [View the full Multisim schematic](8-Bit-Adder-Multisim-Schematic.png)
+
+![Multisim 8-bit adder schematic](8-Bit-Adder-Multisim-Schematic.png)
 
 ## Test Results
 
