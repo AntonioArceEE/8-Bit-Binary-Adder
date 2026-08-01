@@ -30,6 +30,7 @@ The Arduino supplies repeatable 8-bit input patterns, but it does not perform th
 * Regulated 5 V power supply
 * Jumper wires
 * USB connection for the Arduino Serial Monitor
+* Digital Multimeter
 
 ## Circuit Operation
 
@@ -107,8 +108,9 @@ The first output bit in the table represents carry-out, followed by the eight su
 During construction, I encountered several problems that were not as noticeable in simulation:
 
 * Mechanical DIP switches required too much pressure and disturbed nearby jumper wires.
-* Some jumper wires had unreliable contacts.
+* Some jumper wires made unreliable contacts.
 * The Arduino and TTL circuit required a shared common ground.
+* A digital multimeter was used to verify the 5 V rails, common-ground continuity, jumper connections, and latch-enable voltage levels.
 * The shared latch-enable line was not initially held at a reliable TTL LOW level.
 * A 330 Ω pull-down resistor produced more consistent enable operation.
 * LED current-limiting resistors reduced output loading.
@@ -139,8 +141,3 @@ Possible future improvements include:
 * Improve wire organization and signal labeling.
 * Add subtraction or additional logic operations.
 
-## Demonstration
-
-A video demonstration will be added after final recording and editing.
-
-The demonstration will show circuit initialization, operand loading, shared-bus behavior, sum outputs, carry propagation, and final carry-out.
