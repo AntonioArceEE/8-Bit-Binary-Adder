@@ -90,9 +90,9 @@ Send A → Latch A → Send B → Read Result
 ### Simulation Files
 
 - [Download the Multisim simulation](8-Bit-Adder-MultiSim-Simulation.ms14)
-- [View the full Multisim schematic](8-Bit-Adder-MultiSim-Schematic.png)
+- [View the full Multisim schematic](8-Bit-Adder-MultiSim-Simulation-Schematic.png)
 
-![Multisim 8-bit adder schematic](8-Bit-Adder-MultiSim-Schematic.png)
+![Multisim 8-bit adder schematic](8-Bit-Adder-MultiSim-Simulation-Schematic.png)
 
 ## Test Results
 
