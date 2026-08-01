@@ -148,6 +148,6 @@ Possible future improvements include:
 * Add subtraction or additional logic operations.
 ## Video Demonstration
 
-[▶ Watch or download the 8-bit adder hardware demonstration](https://github.com/AntonioArceEE/8-Bit-Binary-Adder/releases/download/v1.0/Arduino-Assisted.8-Bit.Binary.Adder.mp4)
+-[Watch or download the 8-bit adder hardware demonstration](https://github.com/AntonioArceEE/8-Bit-Binary-Adder/releases/download/v1.0/Arduino-Assisted.8-Bit.Binary.Adder.mp4)
 
-The video demonstrates the Arduino input interface, TTL hardware, latch operation, shared-bus behavior, sum outputs, carry propagation, and four verified arithmetic tests.
+-The video demonstrates the Arduino input interface, TTL hardware, latch operation, shared-bus behavior, sum outputs, carry propagation, and four verified arithmetic tests.
