@@ -74,8 +74,6 @@ The initial carry-in is tied to logic LOW. A separate LED displays the final car
 
 The 74LS75 latches do not include a power-on reset in this design. Their initial outputs are therefore undefined when power is first applied.
 
-Before testing, I send `00000000` and activate the latch to initialize stored A to zero.
-
 ## Multisim Simulation
 
 I simulated the circuit in Multisim before completing the physical breadboard version.
